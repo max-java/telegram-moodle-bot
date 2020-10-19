@@ -106,7 +106,7 @@
 	</dependencyManagement>
 
 	<build>
-
+		<finalName>telegram-moodle-bot.${version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
