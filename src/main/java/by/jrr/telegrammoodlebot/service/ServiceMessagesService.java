@@ -1,6 +1,7 @@
 package by.jrr.telegrammoodlebot.service;
 
 import by.jrr.telegrammoodlebot.model.MessageStatus;
+import by.jrr.telegrammoodlebot.model.MessageType;
 import by.jrr.telegrammoodlebot.model.ServiceMessage;
 import by.jrr.telegrammoodlebot.proxy.ServiceMessageProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,14 @@ public class ServiceMessagesService {
         return List.copyOf(allMessages.getContent());
     }
 
-    public List<ServiceMessage> getNewServiceMessages() {
+    public List<ServiceMessage> getNewUserContactsForTelegram() {
         Map<String, String> params = new HashMap<>();
         params.put("telegramStatus", MessageStatus.NEW.name());
-        return serviceMessageProxy.searchMessages(params);
+        params.put("type", MessageType.CONTACT_DATA.name());
+        return serviceMessageProxy.getNewUserContactsForTelegram(params);
     }
 
     public ServiceMessage updateServiceMessageWithSentSuccessStatus(ServiceMessage serviceMessage) {
-        serviceMessage.setTimeStamp(LocalDateTime.now());
         serviceMessage.setTelegramStatus(MessageStatus.SENT);
         return serviceMessageProxy.updateMessage(serviceMessage.getUuid(), serviceMessage);
     }

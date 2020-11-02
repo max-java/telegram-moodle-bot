@@ -1,5 +1,6 @@
 package by.jrr.telegrammoodlebot.proxy;
 
+import by.jrr.telegrammoodlebot.model.Endpoint;
 import by.jrr.telegrammoodlebot.model.ServiceMessage;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.hateoas.CollectionModel;
@@ -24,7 +25,7 @@ public interface ServiceMessageProxy {
     @GetMapping("/messages")
     CollectionModel<ServiceMessage> getAllMessages();
 
-    @GetMapping("mysearch/messages")
-    List<ServiceMessage> searchMessages (@RequestParam Map<String,String> allParams);
+    @GetMapping(Endpoint.NEW_USER_CONTACTS_FOR_TELEGRAM)
+    List<ServiceMessage> getNewUserContactsForTelegram (@RequestParam Map<String,String> allParams);
 
 }
