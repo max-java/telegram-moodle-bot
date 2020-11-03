@@ -1,6 +1,5 @@
 package by.jrr.telegrammoodlebot;
 
-import by.jrr.telegrammoodlebot.job.SendUserDataToAdmin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +11,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 @SpringBootApplication
 @EnableFeignClients
 @EnableScheduling
-public class TelegramMoodleBotApplication {
+public class TelegramMoodleBotApplication {git
 
 	public static void main(String[] args) {
 		ApiContextInitializer.init();
