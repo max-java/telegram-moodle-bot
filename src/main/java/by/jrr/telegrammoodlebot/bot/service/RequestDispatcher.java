@@ -31,12 +31,12 @@ public class RequestDispatcher {
 
     public void dispatch(Update update) {
         switch (getCommand(update)) {
-            case HELP:
-                messageService.sendMessage(update.getMessage(), helpProcessor.run());
-                break;
-            case START:
-                messageService.sendMessage(update.getMessage(), startProcessor.run());
-                break;
+//            case HELP:
+//                messageService.sendMessage(update.getMessage(), helpProcessor.run());
+//                break;
+//            case START:
+//                messageService.sendMessage(update.getMessage(), startProcessor.run());
+//                break;
 //            case SETTING:
 //                messageService.sendMessage(update.getMessage(), settingsProcessor.run());
 //                break;
