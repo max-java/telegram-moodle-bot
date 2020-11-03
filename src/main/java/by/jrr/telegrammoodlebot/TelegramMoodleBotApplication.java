@@ -11,7 +11,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 @SpringBootApplication
 @EnableFeignClients
 @EnableScheduling
-public class TelegramMoodleBotApplication {git
+public class TelegramMoodleBotApplication {
 
 	public static void main(String[] args) {
 		ApiContextInitializer.init();
