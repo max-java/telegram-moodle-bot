@@ -3,6 +3,7 @@ package by.jrr.telegrammoodlebot.bot.service;//package by.jrr.telegram.bot.servi
 import by.jrr.telegrammoodlebot.bot.processor.BotCommand;
 import by.jrr.telegrammoodlebot.bot.processor.HelpProcessor;
 import by.jrr.telegrammoodlebot.bot.processor.StartProcessor;
+import by.jrr.telegrammoodlebot.service.ExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -18,6 +19,10 @@ public class RequestDispatcher {
 //    SettingsProcessor settingsProcessor;
     @Autowired
     StartProcessor startProcessor;
+
+    @Autowired
+    ExecutorService executorService;
+
 //    @Autowired
 //    NerdTermProcessor nerdTermProcessor;
 //    @Autowired
@@ -31,12 +36,12 @@ public class RequestDispatcher {
 
     public void dispatch(Update update) {
         switch (getCommand(update)) {
-            case HELP:
-                messageService.sendMessage(update.getMessage(), helpProcessor.run());
-                break;
-            case START:
-                messageService.sendMessage(update.getMessage(), startProcessor.run());
-                break;
+//            case HELP:
+//                messageService.sendMessage(update.getMessage(), helpProcessor.run());
+//                break;
+//            case START:
+//                messageService.sendMessage(update.getMessage(), startProcessor.run());
+//                break;
 //            case SETTING:
 //                messageService.sendMessage(update.getMessage(), settingsProcessor.run());
 //                break;
@@ -52,45 +57,47 @@ public class RequestDispatcher {
 //            case SAY_HELLO:
 //                sayHelloNewUserProcessor.process(update);
 //                break;
-//            case NONE:
-//                messageService.sendMessage(update.getMessage(), noneProcessor.run());
-//                break;
+            case NONE:
+                executorService.sendUpdateToMessageProcessor(update);
+                break;
+
+
         }
     }
 
     private BotCommand getCommand(Update update) {
         if (update.hasMessage()) {
-            Message message = update.getMessage();
-            if (message != null && message.hasText()) {
-                String msgText = message.getText().toLowerCase();
-                System.out.println("msgText = " + msgText);
-                if (msgText.startsWith(BotCommand.HELP.getCommand())) {
-                    return BotCommand.HELP;
-                } else if (msgText.startsWith(BotCommand.START.getCommand())) {
-                    return BotCommand.START;
-                } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
-                    return BotCommand.SETTING;
-                } else if (msgText.startsWith(BotCommand.NERD_TERM.getCommand())) {
-                    return BotCommand.NERD_TERM;
-                } else if (msgText.startsWith(BotCommand.SAVE_TERM.getCommand())) {
-                    return BotCommand.SAVE_TERM;
-                } else if (msgText.startsWith(BotCommand.DELETE_TERM.getCommand())) {
-                    return BotCommand.DELETE_TERM;
-
-                } else if (msgText.contains(BotCommand.NERD_TERM.getCommand().substring(1))) { // TODO: 27/07/20 add chat listener
-                    return BotCommand.NERD_TERM;
-                } else if (msgText.contains(BotCommand.SAY_HELLO.getCommand())) {
-                    return BotCommand.SAY_HELLO;
-                }
-
-
-            } else if (message != null) {
-                if (message.getGroupchatCreated() != null && message.getGroupchatCreated()) {
-                    return BotCommand.SAY_HELLO;
-                } else if (message.getNewChatMembers() != null && message.getNewChatMembers().size() > 0) {
-                    return BotCommand.SAY_HELLO;
-                }
-            }
+//            Message message = update.getMessage();
+//            if (message != null && message.hasText()) {
+//                String msgText = message.getText().toLowerCase();
+//                System.out.println("msgText = " + msgText);
+//                if (msgText.startsWith(BotCommand.HELP.getCommand())) {
+//                    return BotCommand.HELP;
+//                } else if (msgText.startsWith(BotCommand.START.getCommand())) {
+//                    return BotCommand.START;
+//                } else if (msgText.startsWith(BotCommand.SETTING.getCommand())) {
+//                    return BotCommand.SETTING;
+//                } else if (msgText.startsWith(BotCommand.NERD_TERM.getCommand())) {
+//                    return BotCommand.NERD_TERM;
+//                } else if (msgText.startsWith(BotCommand.SAVE_TERM.getCommand())) {
+//                    return BotCommand.SAVE_TERM;
+//                } else if (msgText.startsWith(BotCommand.DELETE_TERM.getCommand())) {
+//                    return BotCommand.DELETE_TERM;
+//
+//                } else if (msgText.contains(BotCommand.NERD_TERM.getCommand().substring(1))) { // TODO: 27/07/20 add chat listener
+//                    return BotCommand.NERD_TERM;
+//                } else if (msgText.contains(BotCommand.SAY_HELLO.getCommand())) {
+//                    return BotCommand.SAY_HELLO;
+//                }
+//
+//
+//            } else if (message != null) {
+//                if (message.getGroupchatCreated() != null && message.getGroupchatCreated()) {
+//                    return BotCommand.SAY_HELLO;
+//                } else if (message.getNewChatMembers() != null && message.getNewChatMembers().size() > 0) {
+//                    return BotCommand.SAY_HELLO;
+//                }
+//            }
         }
         return BotCommand.NONE;
     }
