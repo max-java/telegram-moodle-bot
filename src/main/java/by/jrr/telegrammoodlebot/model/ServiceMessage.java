@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceMessage {
-    private String uuid;
+    private Long Id;
     private LocalDateTime timeStamp;
     private LocalDateTime lastUpdate;
 

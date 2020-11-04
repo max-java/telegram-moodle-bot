@@ -34,6 +34,6 @@ public class ServiceMessagesService {
 
     public ServiceMessage updateServiceMessageWithSentSuccessStatus(ServiceMessage serviceMessage) {
         serviceMessage.setTelegramStatus(MessageStatus.SENT);
-        return serviceMessageProxy.updateMessage(serviceMessage.getUuid(), serviceMessage);
+        return serviceMessageProxy.updateMessage(serviceMessage.getId(), serviceMessage);
     }
 }

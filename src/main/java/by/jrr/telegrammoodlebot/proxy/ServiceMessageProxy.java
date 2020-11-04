@@ -16,8 +16,8 @@ public interface ServiceMessageProxy {
     @PostMapping("/messages")
     ServiceMessage postNewMessage(ServiceMessage message);
 
-    @PutMapping("/messages/{uuid}")
-    ServiceMessage updateMessage(@PathVariable String uuid, ServiceMessage message);
+    @PutMapping("/messages/{id}")
+    ServiceMessage updateMessage(@PathVariable Long id, ServiceMessage message);
 
     @PutMapping("/messages")
     ServiceMessage updateMessage(ServiceMessage message);
