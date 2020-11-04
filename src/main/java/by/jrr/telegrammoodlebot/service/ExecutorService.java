@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendContact;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Service
@@ -33,6 +34,10 @@ public class ExecutorService {
         for(Long id : administratorsChatsIds) {
             sendUserContactsToAdministrator(serviceMessage, id);
         }
+    }
+
+    public void sendUpdateToMessageProcessor(Update update) { // TODO: 04/11/2020 move from executor to messageService
+        serviceMessagesService.sendUpdateToMessageProcessor(update);
     }
 
     private void sendUserContactsToAdministrator(ServiceMessage serviceMessage, Long administratorChatId) {
