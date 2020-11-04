@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceMessage {
-    private UUID uuid;
+    private String uuid;
     private LocalDateTime timeStamp;
     private LocalDateTime lastUpdate;
 
