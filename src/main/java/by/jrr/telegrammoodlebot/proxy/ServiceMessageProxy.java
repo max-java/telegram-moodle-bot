@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @FeignClient(name = "${message.service}")
 public interface ServiceMessageProxy {
+//    todo consider rename
 
     @PostMapping("/messages")
     ServiceMessage postNewMessage(ServiceMessage message);
@@ -27,5 +27,9 @@ public interface ServiceMessageProxy {
 
     @GetMapping(Endpoint.NEW_USER_CONTACTS_FOR_TELEGRAM)
     List<ServiceMessage> getNewUserContactsForTelegram (@RequestParam Map<String,String> allParams);
+
+    @GetMapping(Endpoint.NEW_MESSAGE_FOR_TELEGRAM)
+    List<ServiceMessage> getNewMessageForTelegram ();
+
 
 }

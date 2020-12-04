@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Service
 public class ServiceMessagesService {
+    //todo: consider to rename this service, because of message entity in telegram
 
     Logger logger = LoggerFactory.getLogger(ServiceMessagesService.class);
 
@@ -42,11 +43,12 @@ public class ServiceMessagesService {
     }
 
     public ServiceMessage updateServiceMessageWithSentSuccessStatus(ServiceMessage serviceMessage) {
+//        todo replace this with single field update endpoint.
         serviceMessage.setTelegramStatus(MessageStatus.SENT);
         return serviceMessageProxy.updateMessage(serviceMessage.getId(), serviceMessage);
     }
 
-    public ServiceMessage sendUpdateToMessageProcessor(Update update) {
+    public ServiceMessage sendUserIncomeDataToMessageProcessorAsUpdate(Update update) {
         ServiceMessage serviceMessage = new ServiceMessage();
         try {
             serviceMessage.setTelegramStatus(MessageStatus.NEW);
@@ -55,9 +57,13 @@ public class ServiceMessagesService {
             serviceMessage.setMessageText(objectMapper.writeValueAsString(update));
             serviceMessageProxy.postNewMessage(serviceMessage);
         } catch (Exception ex) {
-            logger.info("Exception while sending update to messageProcessor, {}", update);
+            logger.error("Exception while sending update to messageProcessor, {}", update);
             ex.printStackTrace();
         }
         return serviceMessage;
+    }
+
+    public List<ServiceMessage> getNewMessageForTelegram() {
+        return serviceMessageProxy.getNewMessageForTelegram();
     }
 }
