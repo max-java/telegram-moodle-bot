@@ -31,13 +31,28 @@ public class ExecutorService {
 
     // TODO: 29/10/2020 set administrators chats ids this from dataBase
     public void sendUserContactsToAdministrators(ServiceMessage serviceMessage, Long... administratorsChatsIds) {
-        for(Long id : administratorsChatsIds) {
+        for (Long id : administratorsChatsIds) {
             sendUserContactsToAdministrator(serviceMessage, id);
         }
     }
 
+    public void sendMessageToUser(ServiceMessage serviceMessage) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(serviceMessage.getChatToken()); //todo: consider to set chat token from profile settings. what will be if I need tokens for viber, insta, ext.?
+        sendMessage.setText(serviceMessage.getMessageText());
+        try {
+            javaQuestionBot.execute(sendMessage);
+            serviceMessagesService.updateServiceMessageWithSentSuccessStatus(serviceMessage);
+        } catch (Exception ex) {
+            log.error("Exception while sending message to user profileId {}: message text: {}", serviceMessage.getUserProfileId(), serviceMessage.getMessageText());
+            log.error(ex.getMessage());
+
+        }
+
+    }
+
     public void sendUpdateToMessageProcessor(Update update) { // TODO: 04/11/2020 move from executor to messageService
-        serviceMessagesService.sendUpdateToMessageProcessor(update);
+        serviceMessagesService.sendUserIncomeDataToMessageProcessorAsUpdate(update);
     }
 
     private void sendUserContactsToAdministrator(ServiceMessage serviceMessage, Long administratorChatId) {
